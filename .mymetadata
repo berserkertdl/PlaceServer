@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="PlaceServer"
+  id="myeclipse.1441982901736"
+  context-root="/PlaceServer"
+  j2ee-spec="5.0"
+  archive="PlaceServer.war">
+  <attributes>
+    <attribute name="webrootdir" value="WebRoot" />
+  </attributes>
+</project-module>
+
