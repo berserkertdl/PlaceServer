@@ -23,7 +23,7 @@
 	<bean id="MySqlDataSource" class="org.apache.commons.dbcp.BasicDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
 		<property name="url"
-			value="jdbc:mysql://localhost:3306/place?useUnicode=true&amp;characterEncoding=utf-8">
+			value="jdbc:mysql://121.43.224.29:3306/place?useUnicode=true&amp;characterEncoding=utf-8">
 		</property>
 
 		<property name="username" value="root"></property>

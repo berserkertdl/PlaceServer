@@ -5,6 +5,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.hibernate.SessionFactory;
+import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 import org.springframework.stereotype.Repository;
 
@@ -30,6 +31,20 @@ public class PlaceDAOImpl extends BaseDAO implements IPlaceDAO {
 		List<PlaceInfo> list = null;
 		try {
 			list = getHibernateTemplate().find(sql, args);
+		} catch (Exception e) {
+			
+		}
+		return list;
+	}
+
+
+	@SuppressWarnings("unchecked")
+	public List<PlaceInfo> findPlaceInfoBySqlTop(String sql,int maxResults, Object... args) {
+		List<PlaceInfo> list = null;
+		try {
+			HibernateTemplate hibernateTemplate = getHibernateTemplate();
+			hibernateTemplate.setMaxResults(maxResults);
+			list = hibernateTemplate.find(sql, args);
 		} catch (Exception e) {
 			
 		}

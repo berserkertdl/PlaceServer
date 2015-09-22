@@ -91,6 +91,20 @@ public class TestController {
 		writer.flush();
 		return null;
 	}
+	
+	@RequestMapping(value = "/getCurrentLocation", method = RequestMethod.POST)
+	public ModelAndView getCurrentLocation(HttpServletRequest request,
+			HttpServletResponse response, ModelMap modelMap) throws IOException {
+		response.setCharacterEncoding("UTF-8");
+		String imei = request.getParameter("imei");
+		String result = placeManager.findPlaceInfoBySqlTOP(imei);
+		PrintWriter writer = response.getWriter();
+		writer.write(result);
+		writer.flush();
+		return null;
+	}
+	
+	
 
 	public static void main(String[] args) {
 
