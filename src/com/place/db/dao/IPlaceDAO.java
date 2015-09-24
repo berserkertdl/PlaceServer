@@ -11,6 +11,8 @@ public interface IPlaceDAO {
 	
 	public List<PlaceInfo> findPlaceInfoBySql(String sql, Object ...args);
 	
+	public List<Object []> findBySql(String sql, Object ...args);
+	
 	public List<PlaceInfo> findPlaceInfoBySqlTop(String sql,int maxResults, Object ...args);
 	
 }

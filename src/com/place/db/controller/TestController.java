@@ -15,6 +15,9 @@ import java.net.URL;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Controller;
@@ -67,10 +70,19 @@ public class TestController {
 	@RequestMapping(value = "/locations.do", method = RequestMethod.POST)
 	public ModelAndView saveLocations(HttpServletRequest request,
 			HttpServletResponse response, ModelMap modelMap) throws IOException {
-		int result = 0;
 		String location_info = request.getParameter("location_info");
+		String result = "";
 		if (null == location_info || "".equals(location_info)) {
-
+			try {
+				JSONArray resultJson = new JSONArray();
+				JSONObject jsonObject = new JSONObject();
+				jsonObject.put("resultCode", "0");
+				resultJson.put(jsonObject);
+				result = resultJson.toString();
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+			
 		} else {
 			result = placeManager.addPlaces(location_info);
 		}
@@ -98,6 +110,18 @@ public class TestController {
 		response.setCharacterEncoding("UTF-8");
 		String imei = request.getParameter("imei");
 		String result = placeManager.findPlaceInfoBySqlTOP(imei);
+		PrintWriter writer = response.getWriter();
+		writer.write(result);
+		writer.flush();
+		return null;
+	}
+	
+	@RequestMapping(value = "/getLocationsBy", method = RequestMethod.POST)
+	public ModelAndView getLocationsBy(HttpServletRequest request,
+			HttpServletResponse response, ModelMap modelMap) throws IOException {
+		response.setCharacterEncoding("UTF-8");
+		String imei = request.getParameter("imei");
+		String result = placeManager.findPlaceInfoGroupByImei(imei);
 		PrintWriter writer = response.getWriter();
 		writer.write(result);
 		writer.flush();

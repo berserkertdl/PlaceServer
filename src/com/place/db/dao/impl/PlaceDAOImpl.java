@@ -51,4 +51,16 @@ public class PlaceDAOImpl extends BaseDAO implements IPlaceDAO {
 		return list;
 	}
 
+
+	@SuppressWarnings("unchecked")
+	public List<Object[]> findBySql(String sql, Object... args) {
+		List<Object[]> list = null;
+		try {
+			list = (List<Object[]>)getHibernateTemplate().find(sql, args);
+		} catch (Exception e) {
+			
+		}
+		return list;
+	}
+
 }
