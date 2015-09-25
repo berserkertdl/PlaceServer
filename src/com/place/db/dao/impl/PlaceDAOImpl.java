@@ -43,7 +43,7 @@ public class PlaceDAOImpl extends BaseDAO implements IPlaceDAO {
 		List<PlaceInfo> list = null;
 		try {
 			HibernateTemplate hibernateTemplate = getHibernateTemplate();
-			hibernateTemplate.setMaxResults(maxResults);
+//			hibernateTemplate.setMaxResults(maxResults);
 			list = hibernateTemplate.find(sql, args);
 		} catch (Exception e) {
 			

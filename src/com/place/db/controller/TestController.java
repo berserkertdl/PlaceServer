@@ -92,7 +92,7 @@ public class TestController {
 		return null;
 	}
 
-	@RequestMapping(value = "/getlocations", method = RequestMethod.GET)
+	@RequestMapping(value = "/getlocations", method = RequestMethod.POST)
 	public ModelAndView getLocations(HttpServletRequest request,
 			HttpServletResponse response, ModelMap modelMap) throws IOException {
 		response.setCharacterEncoding("UTF-8");

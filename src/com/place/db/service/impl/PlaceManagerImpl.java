@@ -137,8 +137,13 @@ public class PlaceManagerImpl implements IPlaceManager {
 	}
 	
 	public String findPlaceInfoGroupByImei(String imeis) {
-		String sql = "select id,imei,provider,longitude,latitude,max(time),accuracy from PlaceInfo group by imei having imei in ( " + imeis +" )";
-		List<Object []> places = placeDao.findBySql(sql);
+		StringBuffer sql = new StringBuffer("select id,imei,provider,longitude,latitude,max(time),accuracy from PlaceInfo group by imei ");
+		if(imeis==null||"".equals(imeis)){
+			
+		}else{
+			sql.append(" having imei in ( " + imeis +" )");
+		}
+		List<Object []> places = placeDao.findBySql(sql.toString());
 		JSONArray result = new JSONArray();
 		JSONObject jsonObject = new JSONObject();
 		try {
@@ -160,7 +165,6 @@ public class PlaceManagerImpl implements IPlaceManager {
 					result.put(jsonObject);
 				}
 			}
-			result.put(jsonObject);
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
@@ -181,25 +185,20 @@ public class PlaceManagerImpl implements IPlaceManager {
 		 */
 
 		// 357458040515669
-		send();
+		// 863034022097732
+		String url1 = "http://121.43.224.29:8080/PlaceServer/getLocationsBy.do";
+		String url2 = "http://121.43.224.29:8080/PlaceServer/getLocationsBy.do";
+		String url3 = "http://121.43.224.29:8080/PlaceServer/getlocations.do";
+//		url3 = "http://172.16.2.155:8080/PlaceServer/getlocations";
+		send(url2);
 
-		long long_arr[] = new long[] { 43539 };
-		for (int i = 0; i < long_arr.length; i++) {
-			System.out.println(aaa(long_arr[i]));
-		}
 
 	}
 
-	public static String aaa(long a) {
-		long b = 5662161376l;
-		long c = (a + b) % 6988 + 10000001l;
-		return c + "";
-	}
 
-	private static void send() {
+	private static void send(String url_) {
 		try {
-			URL url = new URL(
-					"http://172.16.2.155:8080/PlaceServer/getLocationsBy.do");
+			URL url = new URL(url_);
 			HttpURLConnection httpConnect = (HttpURLConnection) url
 					.openConnection();
 			httpConnect.setDoInput(true); // 设置输入采用字符流
@@ -210,12 +209,11 @@ public class PlaceManagerImpl implements IPlaceManager {
 					"application/x-www-form-urlencoded");
 			httpConnect.setRequestProperty("Charset", "UTF-8");
 
-			BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(
+			/*BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(
 					httpConnect.getOutputStream()));
-			writer.write("imei=357458040515669,357458040515668");
+			writer.write("imei=863034022097732");
 			writer.flush();
-			writer.close();
-
+			writer.close();*/
 			BufferedReader reader = new BufferedReader(new InputStreamReader(
 					httpConnect.getInputStream()));
 			String readLine = null;
@@ -228,6 +226,7 @@ public class PlaceManagerImpl implements IPlaceManager {
 
 		} catch (Exception e) {
 			// TODO: handle exception
+			e.printStackTrace();
 		}
 	}
 
